@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Egypt | Photography</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../styles.css">
+
+  <style>
+    .album-container {
+      max-width: 920px;
+      margin: 80px auto;
+      padding: 0 20px;
+    }
+
+    .album-title {
+      font-size: 2.4rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .album-meta {
+      color: #777;
+      font-size: 1rem;
+      margin-bottom: 40px;
+    }
+
+    .album-meta span {
+      margin-right: 16px;
+    }
+
+    .album-images {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 22px;
+    }
+
+    .album-images img {
+        width: 100%;
+        border-radius: 12px;
+        object-fit: cover;
+        cursor: pointer;
+    }
+
+    .album-images img:hover {
+        transform: scale(1.02);
+        transition: 0.2s ease;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 40px;
+      color: #333;
+      font-size: 1.1rem;
+      text-decoration: underline;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.82);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: 0.3s ease;
+      z-index: 999;
+    }
+
+    .lightbox.show {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+      box-shadow: 0 0 40px rgba(0,0,0,0.45);
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="album-container">
+
+    <div class="album-title">Egypt</div>
+
+    <div class="album-meta">
+      <span>Location: Egypt</span>
+      <span>Category: Travel & Documentary Photography</span>
+      <span>Year: 2024</span>
+    </div>
+
+    <div class="album-images">
+      <img src="../assets/Egypt1.jpg" alt="Egypt Photo 1">
+      <img src="../assets/Egypt2.jpg" alt="Egypt Photo 2">
+      <img src="../assets/Egypt3.jpg" alt="Egypt Photo 3">
+    </div>
+
+    <a class="back-link" href="../index.html#photography">← Back to Photography & Artworks</a>
+  </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="lightbox">
+    <img id="lightbox-img" src="">
+  </div>
+
+  <script>
+    const images = document.querySelectorAll('.album-images img');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    images.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImg.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+
+    lightbox.addEventListener('click', () => {
+      lightbox.classList.remove('show');
+    });
+  </script>
+
+</body>
+</html>
