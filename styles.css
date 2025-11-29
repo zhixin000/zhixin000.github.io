@@ -1,80 +1,72 @@
-﻿:root {
+/* =========================================================
+   GLOBAL RESET + BASE SYSTEM
+   ========================================================= */
+:root {
   color-scheme: light;
-  font-family: "EUNOMIA", "Futura", "Futura PT", "DM Sans", "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, "PingFang SC", sans-serif;
   --ink: #17223b;
-  --accent: rgba(255, 255, 255, 0.75);
+  --radius: 14px;
+  --page-max-width: 1200px;
+  --transition: 0.25s ease;
+  --font-main: "EUNOMIA", "Futura", "Futura PT", "DM Sans",
+               "Segoe UI", system-ui, -apple-system,
+               BlinkMacSystemFont, "PingFang SC", sans-serif;
 }
 
-* {
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
-html,
 body {
-  margin: 0;
-  padding: 0;
-}
-
-body {
-  min-height: 100vh;
-  background-color: #ffffff;
-  color: var(--ink);
-}
-
-.page {
-  width: 100vw;
-  aspect-ratio: 16 / 9;
   background: #ffffff;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  font-family: var(--font-main);
+  line-height: 1.6;
+  color: var(--ink);
+  overflow-x: hidden; /* 防止缩放后横向溢出 */
 }
 
-/* ====================== Reset ====================== */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  background: white;
-  font-family: "Futura", "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-  color: #111;
-}
-
-/* ====================== Navigation ====================== */
+/* =========================================================
+   TOP NAVIGATION
+   ========================================================= */
 .top-nav {
   width: 100%;
-  padding: 28px 48px;
+  padding: 26px 48px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 15px;
-  letter-spacing: 0.12em;
 }
 
 .top-nav .logo {
   font-weight: 500;
   opacity: 0.85;
+  letter-spacing: 0.14em;
 }
 
-.top-nav nav a {
+.nav-links a {
   margin-left: 40px;
   text-decoration: none;
-  color: #111;
-  opacity: 0.75;
-  transition: 0.25s;
+  color: #222;
+  font-size: 0.95rem;
+  opacity: 0.78;
+  transition: var(--transition);
 }
 
-.top-nav nav a:hover {
+.nav-links a:hover {
   opacity: 1;
 }
 
-/* ====================== Wind Lines + Letters ====================== */
+/* =========================================================
+   WIND SECTION（稳定高度）
+   ========================================================= */
 .wind-section {
   width: 100%;
-  height: 480px;
+  height: clamp(320px, 40vw, 520px);
   margin-top: 40px;
   display: flex;
   justify-content: center;
@@ -84,12 +76,11 @@ body {
 
 .wind-lines {
   position: relative;
-  width: 60%;
+  width: min(60%, 880px);
   height: 100%;
+  transform: translateX(-240px);
 }
 
-
-/* 超细竖线 */
 .line {
   position: absolute;
   width: 1px;
@@ -98,15 +89,10 @@ body {
   top: 0;
 }
 
-/* 字母 */
 .letter {
   position: absolute;
   top: 260px;
   font-size: 48px;
-  font-weight: 300;
-  letter-spacing: 0.05em;
-
-  /* 彩色柔和渐变 */
   background: linear-gradient(
     120deg,
     #A3BFFA,
@@ -118,58 +104,38 @@ body {
   );
   -webkit-background-clip: text;
   color: transparent;
-
-  animation: sway 4s ease-in-out infinite;
   transform-origin: top center;
-}
-
-/* 左右摆动 + 上下浮动（同时叠加）*/
-@keyframes swayFloat {
-  0% {
-    transform: translateY(0px) rotate(-2deg);
-  }
-  25% {
-    transform: translateY(-6px) rotate(1deg);
-  }
-  50% {
-    transform: translateY(0px) rotate(3deg);
-  }
-  75% {
-    transform: translateY(6px) rotate(0deg);
-  }
-  100% {
-    transform: translateY(0px) rotate(-2deg);
-  }
-}
-
-/* 应用动画 */
-.letter {
   animation: swayFloat 4s ease-in-out infinite;
 }
 
-/* ====================== About Pro Card ====================== */
+@keyframes swayFloat {
+  0%   { transform: translateY(0px) rotate(-2deg); }
+  25%  { transform: translateY(-6px) rotate(1deg); }
+  50%  { transform: translateY(0px) rotate(3deg); }
+  75%  { transform: translateY(6px) rotate(0deg); }
+  100% { transform: translateY(0px) rotate(-2deg); }
+}
 
-.about-pro-card {
+/* =========================================================
+   ABOUT SECTION（最关键的稳定修复）
+   ========================================================= */
+.about-section {
+  padding: 100px 0;
   display: flex;
   justify-content: center;
-  padding: 100px 20px;
 }
 
-.about-card {
-  display: flex;
-  width: 1100px;
-  background: #ffffff;
-  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
-  border-radius: 14px;
-  padding: 40px 50px;
-  gap: 60px;
-  transform: scale(1.19);      /* 放大 14%（很舒服）*/
-  transform-origin: top center; /* 从上方中间放大，不会往外挤 */
+.about-inner {
+  width: min(90%, var(--page-max-width));
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 320px 1fr;
+  gap: 48px;
 }
 
-/* 左侧 */
-.about-left {
-  width: 320px;
+/* 左侧卡片 */
+.about-card-left {
   text-align: center;
 }
 
@@ -182,407 +148,100 @@ body {
 }
 
 .about-name {
-  font-size: 28px;
-  margin-bottom: 4px;
+  font-size: 1.8rem;
+  margin-top: 8px;
 }
 
-.about-subtitle {
-  font-size: 14px;
-  color: #666;
-  margin-bottom: 8px;
-}
-
+.about-role,
 .about-school {
-  font-size: 14px;
+  font-size: 0.95rem;
   opacity: 0.75;
   line-height: 1.5;
-  margin-bottom: 18px;
 }
 
-.about-icons a {
-  font-size: 24px;
-  margin: 0 10px;
-  text-decoration: none;
-  opacity: 0.75;
-  transition: 0.2s;
+.about-icons-row {
+  margin-top: 18px;
+  display: flex;
+  justify-content: center;
+  gap: 16px;
 }
 
-.about-icons a:hover {
-  opacity: 1;
+.about-icon-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: var(--transition);
 }
 
-/* 右侧 */
-.about-right {
-  flex: 1;
+.about-icon-btn:hover {
+  background: rgba(0,0,0,0.06);
 }
 
-.about-right h3 {
-  font-size: 24px;
+.about-icon-btn svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* 右侧文字区域 */
+.about-card-right h3 {
+  font-size: 1.6rem;
   margin-bottom: 12px;
 }
 
-.about-right p {
-  font-size: 16px;
-  line-height: 1.7;
-  margin-bottom: 22px;
+.about-intro {
   opacity: 0.85;
+  margin-bottom: 22px;
 }
 
-/* Interests + Education 两栏 */
 .about-two-cols {
-  display: flex;
-  gap: 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
 }
 
 .about-col h4 {
-  font-size: 18px;
   margin-bottom: 10px;
 }
 
-.about-col ul {
-  list-style: none;
-  padding-left: 0;
-}
-
-.about-col li {
-  margin-bottom: 8px;
-  font-size: 15px;
-  opacity: 0.9;
-}
-
-/* ====================== About Block ====================== */
-.about-section {
-  padding: 120px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.about-container {
-  width: 2000px;
-  display: flex;
-  gap: 30px;
-  align-items: center;
-}
-
-.about-photo {
-  width: 320px;
-  border-radius: 12px;
-  object-fit: cover;
-}
-
-.about-text {
-  max-width: 520px;
-}
-
-.about-text h2 {
-  font-size: 36px;
-  margin-bottom: 24px;
-}
-
-.about-text p {
-  font-size: 18px;
-  line-height: 1.7;
-  opacity: 0.85;
-  margin-bottom: 16px;
-}
-
-/* ====================== Placeholder ====================== */
-.placeholder {
-  height: 400px;
-  background: #fafafa;
-  margin: 60px 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  letter-spacing: 0.15em;
-  color: #888;
-}
-
-
-
-/* ====================== 摄影作品卡片模块 ====================== */
-
-.photo-grid {
-  margin-top: 40px;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 28px;
-}
-
-.photo-card {
-  display: flex;
-  flex-direction: column;
-  background: #ffffff;
-  border-radius: 14px;
-  overflow: hidden;
-  text-decoration: none;
-  color: #222;
-  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.12);
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
-}
-
-.photo-card img {
-  width: 100%;
-  height: 180px;
-  object-fit: cover;
-}
-
-.photo-card .photo-title {
-  padding: 14px 16px;
-  font-size: 1rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.photo-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.18);
-}
-
-
-/* ===================== Project Section ===================== */
+/* =========================================================
+   PROJECT GRID（完全自适应稳定布局）
+   ========================================================= */
 .projects-section {
   padding: 100px 6%;
   background: #000;
   color: #fff;
 }
 
-.projects-title {
-  font-size: 3rem;
-  font-weight: 600;
-  margin-bottom: 60px;
-  text-align: center;
-}
-
-.projects-title span {
-  background: linear-gradient(120deg, #8ec5fc, #e0c3fc);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Project container */
-.project-item {
-  display: flex;
-  align-items: center;
-  gap: 50px;
-  margin-bottom: 120px;
-}
-
-/* 图片尺寸 */
-.project-image {
-  width: 40%;
-  border-radius: 22px;
-  overflow: hidden;
-}
-
-.project-image img {
-  width: 100%;
-  height: auto;
-  border-radius: 22px;
-  transition: transform 0.45s ease;
-}
-
-.project-image:hover img {
-  transform: scale(1.05);
-}
-
-/* 文本 */
-.project-content {
-  width: 55%;
-}
-
-.project-number {
-  font-size: 4rem;
-  font-weight: 700;
-  opacity: 0.35;
-  margin-bottom: -12px;
-}
-
-.project-name {
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 18px;
-}
-
-.project-desc {
-  line-height: 1.7;
-  font-size: 1.1rem;
-  opacity: 0.85;
-  margin-bottom: 20px;
-}
-
-.project-link {
-  font-size: 2rem;
-  color: #fff;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-.project-link:hover {
-  opacity: 0.6;
-}
-
-/* ⭐ 左右交替布局 */
-.project-item.right-image {
-  flex-direction: row-reverse;
-}
-
-/* Responsive */
-@media (max-width: 900px) {
-  .project-item,
-  .project-item.right-image {
-    flex-direction: column;
-    text-align: center;
-  }
-  .project-image,
-  .project-content {
-    width: 100%;
-  }
-}
-
-/* ====================== CLEAN ABOUT (NO CARD) ====================== */
-
-.about-clean {
-  padding: 40px 0 80px 0;
-  display: flex;
-  justify-content: center;
-}
-
-.about-clean-wrapper {
-  width: 1100px;
-  display: flex;
-  gap: 100px;
-}
-
-/* 左侧 */
-.about-left-clean {
-  width: 300px;
-  text-align: center;
-}
-
-.about-avatar-clean {
-  width: 220px;
-  height: 220px;
-  border-radius: 50%;
-  object-fit: cover;
-  margin-bottom: 18px;
-}
-
-.about-name-clean {
-  font-size: 32px;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-
-.about-subtitle-clean {
-  font-size: 15px;
-  color: #666;
-  margin-bottom: 10px;
-}
-
-.about-school-clean {
-  font-size: 14px;
-  opacity: 0.75;
-  line-height: 1.5;
-  margin-bottom: 18px;
-}
-
-.about-icons-clean a {
-  font-size: 22px;
-  margin: 0 10px;
-  opacity: 0.7;
-  transition: 0.25s;
-  text-decoration: none;
-}
-
-.about-icons-clean a:hover {
-  opacity: 1;
-}
-
-/* 右侧文字内容 */
-.about-right-clean {
-  flex: 1;
-  padding-top: 12px;
-}
-
-.about-right-clean h3 {
-  font-size: 26px;
-  margin-bottom: 14px;
-}
-
-.about-right-clean p {
-  font-size: 16px;
-  line-height: 1.7;
-  opacity: 0.85;
-  margin-bottom: 28px;
-}
-
-/* Interests & Education 两栏 */
-.about-two-cols-clean {
-  display: flex;
-  gap: 90px;
-}
-
-.about-two-cols-clean h4 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.about-two-cols-clean ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.about-two-cols-clean li {
-  font-size: 15px;
-  opacity: 0.9;
-  margin-bottom: 8px;
-}
-
-.edu-sub {
-    font-size: 14px;     /* 字体变小 */
-    color: #666666;      /* 优雅深灰 */
-    margin-left: 24px;   /* 与上面对齐，看起来更专业 */
-    line-height: 1.4;
-}
-
-/* ====================== NEW PROJECT GRID ====================== */
-
-.projects-grid-section {
-  padding: 100px 6%;
-  background: #000;
-  color: #fff;
-}
-
-.projects-grid-title {
-  font-size: 2.6rem;
+.section-title {
+  font-size: 2.4rem;
   font-weight: 600;
   text-align: center;
   margin-bottom: 60px;
 }
 
-.projects-grid-title span {
+.section-title span {
   background: linear-gradient(120deg, #8ec5fc, #e0c3fc);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Grid Layout */
-.projects-grid {
+.projects-row {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 36px;
+  width: min(100%, var(--page-max-width));
+  margin: 0 auto;
 }
 
-/* Card */
 .project-card {
   background: #111;
-  border-radius: 12px;
+  border-radius: var(--radius);
   overflow: hidden;
   text-decoration: none;
-  color: white;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  color: #fff;
+  transition: var(--transition);
 }
 
 .project-card img {
@@ -592,114 +251,89 @@ body {
 }
 
 .project-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 25px rgba(255, 255, 255, 0.12);
+  transform: translateY(-6px);
+  box-shadow: 0 8px 26px rgba(255, 255, 255, 0.12);
 }
 
-/* Text inside card */
-.card-content {
+.project-text {
   padding: 20px 22px;
 }
 
-.card-content h3 {
-  font-size: 1.3rem;
-  margin-bottom: 8px;
-}
-
-.card-content p {
-  opacity: 0.8;
-  font-size: 0.95rem;
-  line-height: 1.4;
-  margin-bottom: 14px;
-}
-
-/* Tags */
-.tag-box span {
-  display: inline-block;
+.project-tags span {
   border: 1px solid #666;
   border-radius: 6px;
-  padding: 4px 10px;
+  padding: 3px 10px;
   margin-right: 8px;
   font-size: 0.75rem;
-  opacity: 0.85;
 }
 
-/* ====================== Contact Section ====================== */
+/* =========================================================
+   PHOTO GRID（稳定不跳动）
+   ========================================================= */
+.photo-section {
+  padding: 100px 0;
+}
 
+.photo-grid {
+  width: min(90%, var(--page-max-width));
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 28px;
+}
+
+.photo-card {
+  text-decoration: none;
+  color: #222;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.12);
+  transition: var(--transition);
+}
+
+.photo-card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.photo-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.18);
+}
+
+.photo-title {
+  padding: 14px 16px;
+  font-size: 1rem;
+}
+
+/* =========================================================
+   CONTACT（保持结构不乱）
+   ========================================================= */
 .contact-section {
   padding: 100px 0 140px 0;
   text-align: center;
-  background: #fff;
 }
 
-.contact-title {
-  font-size: 22px;
-  letter-spacing: 0.12em;
-  margin-bottom: 60px;
-  color: #333;
-}
-
-/* 三列布局 */
 .contact-grid {
   display: flex;
   justify-content: center;
   gap: 120px;
+  flex-wrap: wrap; /* 自动换行以避免缩放挤压 */
 }
 
 .contact-item {
   text-align: center;
 }
 
-.contact-icon {
-  font-size: 32px;
-  margin-bottom: 10px;
-  opacity: 0.8;
-}
-
-.contact-text {
-  font-size: 16px;
-  color: #444;
-  letter-spacing: 0.05em;
-}
-
-/* 手机适配 */
-@media (max-width: 600px) {
-  .contact-grid {
-    flex-direction: column;
-    gap: 40px;
-  }
-}
-/* ====================== Contact Animations ====================== */
-
-/* Apple-style fade-in */
-.fade-in {
-  opacity: 0;
-  transform: translateY(30px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Floating animation */
-.float-up {
-  animation: float 3s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%   { transform: translateY(0); }
-  50%  { transform: translateY(-6px); }
-  100% { transform: translateY(0); }
-}
-
-/* SVG styling */
 .contact-icon svg {
   width: 38px;
   height: 38px;
   opacity: 0.85;
-  transition: transform 0.3s ease, opacity 0.3s ease;
+  margin-bottom: 8px;
+  transition: var(--transition);
 }
 
 .contact-item:hover svg {
@@ -707,96 +341,49 @@ body {
   opacity: 1;
 }
 
-
-/* ====================== Sections ====================== */
-.info-section {
-  padding: 80px 20px;
-  max-width: 900px;
-  margin: 0 auto;
-  color: #333;
-}
-
-
-/* ========== Story Section (Two-Column Layout) ========== */
-
-.story-section {
-  padding: 100px 6% 120px;
-  background: #fff;
-  color: #222;
-}
-
-.story-inner {
-  max-width: 960px;
-  margin: 0 auto;
-}
-
-/* 标题区域 */
-.story-header h1 {
-  font-size: 2.4rem;
-  margin-bottom: 8px;
-}
-
-.story-header .story-subtitle {
+.contact-text {
   font-size: 1rem;
-  color: #777;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
-/* 每一块：左列标签 + 右列正文 */
-.story-block {
-  display: grid;
-  grid-template-columns: 160px 1fr;
-  column-gap: 36px;
-  margin-top: 48px;
-}
-
-.story-label {
-  font-size: 0.9rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: #999;
-  padding-top: 6px;
-}
-
-.story-body h2 {
-  font-size: 1.35rem;
-  margin-bottom: 10px;
-}
-
-.story-body p {
-  font-size: 1.02rem;
-  line-height: 1.9;
-  margin-bottom: 20px;
-  color: #333;
-}
-
-/* 响应式：窄屏改为单列 */
-@media (max-width: 768px) {
-  .story-block {
+/* =========================================================
+   RESPONSIVE（为手机优化）
+   ========================================================= */
+@media (max-width: 900px) {
+  .about-inner {
     grid-template-columns: 1fr;
-    row-gap: 8px;
+    text-align: center;
   }
-  .story-label {
-    padding-top: 0;
+
+  .about-two-cols {
+    grid-template-columns: 1fr;
+  }
+
+  .nav-links a {
+    margin-left: 20px;
   }
 }
 
-/* Make insert images smaller */
-.insert-img img {
-    width: 65%;        /* 调整为你想要的比例，可以改成 60% / 50% */
-    display: block;
-    margin: 0 auto;    /* 居中对齐 */
-    border-radius: 12px;
+@media (max-width: 600px) {
+  .top-nav {
+    padding: 20px 24px;
+  }
+
+  .photo-grid {
+    grid-template-columns: 1fr 1fr;
+  }
 }
 
-/* Reduce spacing between story-label and story-body */
-.story-block {
-    column-gap: 0px;  /* 原来 36px，改小即可 */
+.about-col ul,
+.about-col ul li {
+  list-style: none !important;  /* 去掉黑点 */
+  padding-left: 0 !important;
+  margin-left: 0 !important;
 }
 
-/* Optional: Make story label narrower to compress spacing */
-.story-label {
-    width: 90px;       /* 原来默认自动宽度，改成更窄一点 */
+.edu-sub {
+  font-size: 0.88rem;   /* 更小字体 */
+  color: #666;          /* 优雅灰色 */
+  margin-top: 4px;
+  line-height: 1.35;    /* 行距紧一点 */
 }
-
