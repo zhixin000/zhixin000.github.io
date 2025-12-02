@@ -27,30 +27,40 @@
 <h1 class="project-title">Sun-Grinding Machine</h1>
 <div class="project-info">Category: Kinetic Installation · Tools: BLDC, AS5600, Modbus · Year: 2023</div>
 
-<img src="../assets/project4-hero.jpg" class="hero-img">
+<img src="../assets/Project4.jpg" class="hero-img">
 
-<div class="text-block">
-This kinetic installation uses the metaphor of “grinding the sun,” exploring the relationship between
-light, labor, and feedback. As participants rotate the large wheel, real-time sensor data drives dynamic
-LED animations.
+<div class="story-body">
+<p>
+This project takes the millstone as its central interactive medium, constructing a layered experience built on light, labor, and feedback. The installation is organized into three parts: a spotlight suspended above that symbolizes value and aspiration, a hand-driven millstone at the center that serves as the tactile interface, and an LED screen below that visualizes the participant’s physical input in real time. 
+</p>
+
+<p>
+Technically, the work is powered by a 2804 brushless DC motor and an AS5600 magnetic encoder for precise angle detection. A Python-based system continuously captures and analyzes rotational motion — speed, direction, and subtle variations — and transmits this data via Modbus RTU to the control board. The board then communicates through the HJ212 protocol to animate the LED display. As the viewer turns the millstone, every subtle change in force and rhythm is immediately transformed into shifting light and imagery, turning the viewer from a passive observer into an active agent within the system.
+</p>
 </div>
 
-<div class="two-col">
-    <img src="../assets/project4-d1.jpg">
-    <img src="../assets/project4-d2.jpg">
+
+    <div class="insert-img">
+        <img src="../assets/project41.jpg" class="insert-img">
+    </div>
+
+<div class="story-body">
+<p>
+Beyond the mechanics, the installation speaks to a broader emotional landscape shared by contemporary young people. In a time when many feel trapped in cycles of involution, endless competition, and repetitive labor with unclear reward, effort often becomes a performance without tangible meaning. The term “performative labor” — a phrase describing slow, futile labor — captures this cultural tension. Yet within the installation, this negativity is gently subverted: the repetitive motion of turning the millstone produces visible, responsive light; “effort” becomes “impact,” and “process” becomes “value.”
+</p>
+
+<p>
+The work therefore invites participants to reflect on the systems we inhabit — systems that frequently blur the line between diligence and exhaustion, ambition and pressure. By giving each rotation immediate feedback, Sun-Grinding Machine imagines a space where labor is not invisible, where intention is not swallowed by endless cycles, and where the individual can once again feel the weight and meaning of their own actions. In this quiet interplay between body and light, the installation asks: What would it mean if our real lives offered such clarity, such reciprocity, such proof that our actions matter?
+</p>
 </div>
 
-<div class="text-block">
-A 2804 BLDC motor and AS5600 magnetic encoder measure rotation speed and position. Data is transmitted
-via Modbus RTU to a control card that updates the LED behavior through the HJ212 protocol.
-</div>
 
-<h2 style="margin-top:50px;">Gallery</h2>
-<div class="masonry">
-    <img src="../assets/p4-g1.jpg">
-    <img src="../assets/p4-g2.jpg">
-    <img src="../assets/p4-g3.jpg">
-</div>
+
+    <div class="insert-img">
+        <img src="../assets/project42.jpg" class="insert-img">
+    </div>
+
+
 
 </div>
 </body>
